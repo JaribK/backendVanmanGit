@@ -54,9 +54,9 @@ class LeaveRequestList(generics.ListCreateAPIView):
     
     def delete(self, request, *args, **kwargs):
         try:
-        # Delete all instances of Timesheets
-            Timesheets.objects.all().delete()
-            return Response({'message': 'All Timesheets deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+            # Delete all instances of leave_requests
+            leave_requests.objects.all().delete()
+            return Response({'message': 'All leave_requests deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
