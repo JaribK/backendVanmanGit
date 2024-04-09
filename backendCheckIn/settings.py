@@ -82,29 +82,29 @@ WSGI_APPLICATION = 'backendCheckIn.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'checkinbot',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'" ,"use_pure": True},
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         #'ENGINE': 'django.db.backends.sqlite3',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': 'dPYrmLVjOCJdrAarZRGZwNhgqqAoHyTL',
-#         'HOST': 'roundhouse.proxy.rlwy.net',
-#         'PORT': '15188',
+#         'ENGINE': 'mysql.connector.django',
+#         'NAME': 'checkinbot',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'" ,"use_pure": True},
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        #'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'dPYrmLVjOCJdrAarZRGZwNhgqqAoHyTL',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '15188',
+    }
+}
 
 
 # Password validation
