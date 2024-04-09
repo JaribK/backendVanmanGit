@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backendCheckIn.urls'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-"http://localhost:5173","https://frontend-vanman-git.vercel.app/","https://frontend-vanman-git.vercel.app"
+"http://localhost:5173","https://frontend-vanman-git.vercel.app"
 ]
 CORS_ALLOW_METHODS = [
     'DELETE',
