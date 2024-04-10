@@ -6,8 +6,8 @@ from users.models import CustomUser
 
 class Timesheets(models.Model):
     status = [
-    (0,'normal'),
-    (1,'backdate'),
+    ('normal','Normal'),
+    ('backdate','Backdate'),
     ]
     time_in = models.TimeField(null=False,default='00:00')
     time_out = models.TimeField(null=True,default='-')
