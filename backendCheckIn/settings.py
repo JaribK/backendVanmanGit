@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'models',
+    'users',
     'corsheaders',
 ]
 
@@ -112,15 +112,16 @@ WSGI_APPLICATION = 'backendCheckIn.wsgi.application'
 #     }
 # }
 
+
 DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'dPYrmLVjOCJdrAarZRGZwNhgqqAoHyTL',
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '15188',
+        'PASSWORD': 'qkosEPxtSBBHNeUCdjMCKYDpFcZewvwa',
+        'HOST': 'viaduct.proxy.rlwy.net',
+        'PORT': '58954',
     }
 }
 
@@ -165,3 +166,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.CustomUser'

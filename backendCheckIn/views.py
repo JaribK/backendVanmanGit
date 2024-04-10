@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 from .serializers import UserSerializer
 from django.contrib.auth.models import User
+from users.models import CustomUser
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 
@@ -14,7 +15,7 @@ from rest_framework.decorators import authentication_classes
 
 @api_view(['POST'])
 def login(req):
-    user = get_object_or_404(User, username=req.data['username'])
+    user = get_object_or_404(CustomUser, username=req.data['username'])
     if not user.check_password(req.data['password']):
         return Response({'error': 'Wrong password'}, status=status.HTTP_400_BAD_REQUEST)
     token = Token.objects.get_or_create(user=user)
@@ -26,7 +27,7 @@ def register(req):
     serializer = UserSerializer(data=req.data)
     if serializer.is_valid():
         serializer.save()
-        user = User.objects.get(username=req.data['username'])
+        user = CustomUser.objects.get(username=req.data['username'])
         user.set_password(req.data['password'])
         user.save()
         token = Token.objects.create(user=user)
