@@ -8,4 +8,6 @@ urlpatterns = [
     path('config_salary/<int:pk>/', views.ConfigSalaryDetail.as_view()),
     path('leave_requests/', views.LeaveRequestList.as_view()),
     path('leave_requests/<int:pk>/', views.LeaveRequestDetail.as_view()),
+    path('get_datetime/', views.get_text, name='get_text'),
 ]
+

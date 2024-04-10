@@ -32,3 +32,6 @@ class leave_requests(models.Model):
     who_signed = models.CharField(max_length=50,null=True)
     tel = models.CharField(max_length=50,null=False)
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='leave_requests')
+
+class DisplayText(models.Model):
+    text = models.CharField(max_length=255)
