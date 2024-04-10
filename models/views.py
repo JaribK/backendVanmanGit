@@ -3,8 +3,8 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 # Create your views here.
 from rest_framework.decorators import api_view
-from .models import Timesheets, ConfigSalary, leave_requests, DisplayText
-from .serializers import TimesheetsSerializer, ConfigSalarySerializer, leave_requestsSerializer , DisplayTextSerializer
+from .models import Timesheets, ConfigSalary, leave_requests
+from .serializers import TimesheetsSerializer, ConfigSalarySerializer, leave_requestsSerializer
 from django.utils import timezone
 
 class TimesheetList(generics.ListCreateAPIView):
@@ -65,13 +65,3 @@ class LeaveRequestList(generics.ListCreateAPIView):
 class LeaveRequestDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = leave_requestsSerializer
     queryset = leave_requests.objects.all()
-
-@api_view(['GET'])
-def get_text(request):
-    text_obj = DisplayText.objects.first()
-    if not text_obj:
-        text_obj = DisplayText.objects.create(text='Initial Text')
-    serializer = DisplayTextSerializer(text_obj)
-    return Response({'text': serializer.data['text'], 'datetime': timezone.now()})
-
-
