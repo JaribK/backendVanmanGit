@@ -5,17 +5,26 @@ from users.models import CustomUser
 # Create your models here.
 
 class Timesheets(models.Model):
-    status = [
+
+    type = [
     ('normal','Normal'),
     ('backdate','Backdate'),
     ]
+
+    status = [
+    (0,'rejected'),
+    (1,'pending'),
+    (2,'approved')
+    ]
+    
     time_in = models.TimeField(null=False,default='00:00')
     time_out = models.TimeField(null=True,default='-')
     description = models.CharField(max_length=256,null=False)
     site_name = models.CharField(max_length=50,null=False)
     date = models.DateField(null=False)
     who_signed = models.CharField(max_length=50,null=True)
-    status = models.CharField(max_length=50,null=False,default=status[0][0])
+    type_sign = models.CharField(max_length=50,null=False,default=type[0][0])
+    status = models.CharField(max_length=50,null=False,choices=status,default=status[1][0])
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='timesheets')
 
 class ConfigSalary(models.Model):
