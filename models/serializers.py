@@ -4,7 +4,7 @@ from .models import Timesheets, ConfigSalary, leave_requests
 class TimesheetsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Timesheets
-        fields = ['id','date', 'time_in', 'time_out', 'description' , 'site_name', 'who_signed', 'user']
+        fields = ['id','date', 'time_in', 'time_out', 'description' , 'site_name', 'who_signed', 'user', 'status']
 
 class ConfigSalarySerializer(serializers.ModelSerializer):
     class Meta:
