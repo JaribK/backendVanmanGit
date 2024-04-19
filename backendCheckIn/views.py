@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -13,9 +14,24 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.decorators import authentication_classes
 
+# @api_view(['POST'])
+# def login(req):
+#     user = get_object_or_404(CustomUser, username=req.data['username'])
+#     if not user.check_password(req.data['password']):
+#         return Response({'error': 'Wrong password'}, status=status.HTTP_400_BAD_REQUEST)
+#     token = Token.objects.get_or_create(user=user)
+#     serializer = UserSerializer(instance=user)
+#     return Response({'token': token[0].key ,"user": serializer.data})
+
 @api_view(['POST'])
 def login(req):
-    user = get_object_or_404(CustomUser, username=req.data['username'])
+    # user = get_object_or_404(CustomUser, username=req.data['username'])
+
+    try:
+        user = CustomUser.objects.get(username=req.data['username'])
+    except ObjectDoesNotExist:
+        return Response({'error': 'Username not found'}, status=status.HTTP_404_NOT_FOUND)
+    
     if not user.check_password(req.data['password']):
         return Response({'error': 'Wrong password'}, status=status.HTTP_400_BAD_REQUEST)
     token = Token.objects.get_or_create(user=user)
