@@ -37,6 +37,9 @@ def login(req):
     if not user.check_password(req.data['password']):
         return Response({'error': 'Wrong password'}, status=status.HTTP_400_BAD_REQUEST)
 
+    if user.is_logged_in:
+        return Response({'error': 'User is already logged in'}, status=status.HTTP_400_BAD_REQUEST)
+
     # Fetch current time from World Time API
     world_time_response = requests.get('https://worldtimeapi.org/api/ip')
     if world_time_response.status_code == 200:
@@ -45,7 +48,8 @@ def login(req):
     else:
         # Fallback to Django's timezone.now() if World Time API call fails
         user.last_login = timezone.now()
-    
+        
+    user.is_logged_in = True
     user.save()
     
     token = Token.objects.get_or_create(user=user)
@@ -74,5 +78,8 @@ def token(req):
 @authentication_classes([TokenAuthentication, SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def logout(req):
+    req.user.is_logged_in = False
+    req.user.save()
+    
     req.user.auth_token.delete()
     return Response({'message': 'Logged out successfully'})
