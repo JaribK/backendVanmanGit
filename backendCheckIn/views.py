@@ -38,7 +38,7 @@ def login(req):
         return Response({'error': 'Wrong password'}, status=status.HTTP_400_BAD_REQUEST)
 
     if user.is_logged_in:
-        return Response({'error': 'User is already logged in'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'User is already logged in'}, status=status.HTTP_409_CONFLICT)
 
     # Fetch current time from World Time API
     world_time_response = requests.get('https://worldtimeapi.org/api/ip')
