@@ -20,7 +20,7 @@ class Timesheets(models.Model):
     time_in = models.TimeField(null=False,default='00:00')
     time_out = models.TimeField(null=True,default='-')
     description = models.CharField(max_length=256,null=False)
-    site_name = models.CharField(max_length=50,null=False)
+    type_of_work = models.CharField(max_length=50,null=False)
     date = models.DateField(null=False)
     who_signed = models.CharField(max_length=50,null=True)
     type_sign = models.CharField(max_length=50,null=False,default=type[0][0])
