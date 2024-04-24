@@ -12,6 +12,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(_('staff'), default=False)
     role = models.CharField(max_length=150, blank=True)
     is_staff = models.BooleanField(_('staff'), default=False)
+    is_logged_in = models.BooleanField(_('logged in'), default=False)
 
     objects = CustomUserManager()
 
