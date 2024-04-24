@@ -14,6 +14,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.decorators import authentication_classes
 
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework import viewsets
+from django.contrib.auth.models import update_last_login
+
 # @api_view(['POST'])
 # def login(req):
 #     user = get_object_or_404(CustomUser, username=req.data['username'])
@@ -62,3 +67,20 @@ def token(req):
 def logout(req):
     req.user.auth_token.delete()
     return Response({'message': 'Logged out successfully'})
+
+class LoginViewSet(viewsets.ViewSet):
+    """Checks email and password and returns an auth token."""
+
+    serializer_class = AuthTokenSerializer
+
+def create(self, request):
+    """Use the ObtainAuthToken APIView to validate and create a token."""
+
+    ##update last_login
+    try:
+        user = CustomUser.objects.get(email = request.data['username'])
+        update_last_login(None, user)
+    except:
+        pass
+
+    return ObtainAuthToken().post(request)
