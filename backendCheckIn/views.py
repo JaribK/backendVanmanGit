@@ -14,6 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.decorators import authentication_classes
 from django.utils import timezone
+import requests
 
 # @api_view(['POST'])
 # def login(req):
@@ -36,8 +37,16 @@ def login(req):
     if not user.check_password(req.data['password']):
         return Response({'error': 'Wrong password'}, status=status.HTTP_400_BAD_REQUEST)
 
-    user.last_login = timezone.now()  # Add this line to update last_login
-    user.save() 
+    # Fetch current time from World Time API
+    world_time_response = requests.get('https://worldtimeapi.org/api/ip')
+    if world_time_response.status_code == 200:
+        current_time = world_time_response.json()['datetime']
+        user.last_login = current_time
+    else:
+        # Fallback to Django's timezone.now() if World Time API call fails
+        user.last_login = timezone.now()
+    
+    user.save()
     
     token = Token.objects.get_or_create(user=user)
     serializer = UserSerializer(instance=user)
