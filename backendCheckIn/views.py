@@ -145,7 +145,7 @@ def change_password(request):
             send_mail(
                 'Reset Your Password',  # Subject
                 '',  # Empty body (since we're using HTML content)
-                'COMPANY NAME',  # Sender
+                'VANMAN',  # Sender
                 [email],  # Recipient(s)
                 html_message=email_content,  # HTML content
                 fail_silently=False
