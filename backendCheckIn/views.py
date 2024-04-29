@@ -113,7 +113,7 @@ def change_password(request):
             )
 
             # Here you pass the context of things above to send them in an email
-            reset_password_url = f'{settings.FRONTEND_URL}/reset-password/{slug}'
+            reset_password_url = f'{settings.FRONTEND_URL}/reset-password/{token.key}'
 
             email_content = f"""
             <html>
