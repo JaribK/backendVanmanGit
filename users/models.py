@@ -30,20 +30,75 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
 
     # the below like concatinates your websites reset password url and the reset email token which will be required at a later stage
-    email_plaintext_message = "Open the link to reset your password" + " " + "{}{}".format(instance.request.build_absolute_uri("https://vanman.vercel.app/reset-password/"), reset_password_token.key)
-    
-    """
-        this below line is the django default sending email function, 
-        takes up some parameter (title(email title), message(email body), from(email sender), to(recipient(s))
+    email_plaintext_message = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Password Reset for Crediation portal account</title>
+            <style>
+                /* Inline CSS styles */
+                body {{
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    margin: 0;
+                    padding: 0;
+                }}
+                .container {{
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #fff;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }}
+                h1 {{
+                    color: #333;
+                }}
+                p {{
+                    color: #555;
+                }}
+                .button {{
+                    display: inline-block;
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    color: #fff;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    border: none;
+                    cursor: pointer;
+                }}
+                .button:hover {{
+                    background-color: #0056b3;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>Password Reset</h1>
+                <p>Dear user,</p>
+                <p>We received a request to reset your password for the Crediation portal account. If you did not make this request, please ignore this email.</p>
+                <p>To reset your password, please click the button below:</p>
+                <button class="button" type="button" onclick="window.location.href='{instance.request.build_absolute_uri('https://vanman.vercel.app/reset-password/')}{reset_password_token.key}'">Reset Password</button>
+                <p>If the button above doesn't work, you can copy and paste the following URL into your browser's address bar:</p>
+                <p>{instance.request.build_absolute_uri('https://vanman.vercel.app/reset-password/')}{reset_password_token.key}</p>
+                <p>Thank you.</p>
+                <p>Best regards,<br>Your Company Team</p>
+            </div>
+        </body>
+        </html>
     """
     send_mail(
         # title:
-        "Password Reset for {title}".format(title="Crediation portal account"),
-        # message:
-        email_plaintext_message,
-        # from:
+        # Subject
+        "You requested for reset password.",
+        # Message (HTML content)
+        "",
+        # Sender
         "info@yourcompany.com",
-        # to:
+        # Recipient
         [reset_password_token.user.email],
+        # HTML message
+        html_message=email_html_message,
+        # Do not fail silently (raise an exception if sending fails)
         fail_silently=False,
     )
