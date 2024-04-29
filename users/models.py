@@ -82,7 +82,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
                 <p>If the button above doesn't work, you can copy and paste the following URL into your browser's address bar:</p>
                 <p>{instance.request.build_absolute_uri('https://vanman.vercel.app/reset-password/')}{reset_password_token.key}</p>
                 <p>Thank you.</p>
-                <p>Best regards,<br>Your Company Team</p>
+                <p>Best regards,<br>VANMAN</p>
             </div>
         </body>
         </html>
