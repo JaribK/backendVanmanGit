@@ -104,15 +104,55 @@ def change_password(request):
             # Here you pass the context of things above to send them in an email
             reset_password_url = settings.FRONTEND_URL + '/reset-password/' + token.key
 
+            email_content = f"""
+            <html>
+            <head>
+              <style>
+                /* Add your CSS styles here */
+                body {{
+                  font-family: Arial, sans-serif;
+                  line-height: 1.6;
+                }}
+                .container {{
+                  max-width: 600px;
+                  margin: 0 auto;
+                  padding: 20px;
+                  background-color: #f9f9f9;
+                  border: 1px solid #ccc;
+                }}
+                .button {{
+                  display: inline-block;
+                  padding: 10px 20px;
+                  background-color: #007bff;
+                  color: #fff;
+                  text-decoration: none;
+                  border-radius: 5px;
+                }}
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <h2>Reset Your Password</h2>
+                <p>Please click the following link to reset your password:</p>
+                <p><a class="button" href="{reset_password_url}">Reset Password</a></p>
+                <p>If you did not request a password reset, please ignore this email.</p>
+                <p>Regards,<br>COMPANY NAME</p>
+              </div>
+            </body>
+            </html>
+            """
+            # Send the email with HTML content
             send_mail(
-                'SUBJECT',
-                f'Please click the following link to reset your password: {reset_password_url}',
-                'COMPANY NAME and No Reply',
-                [email],
+                'Reset Your Password',  # Subject
+                '',  # Empty body (since we're using HTML content)
+                'COMPANY NAME',  # Sender
+                [email],  # Recipient(s)
+                html_message=email_content,  # HTML content
                 fail_silently=False
             )
             return Response({'message': 'Reset password email sent'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == "GET":
         return Response({'message': 'GET request is not supported'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
