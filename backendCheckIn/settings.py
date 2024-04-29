@@ -173,3 +173,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
+Sending Email Check for password reset.Remove or comment the EMAIL BACKEND. Add and Fill the details.it will work.
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'xxxxxxxxxxx@gmail.com'
+EMAIL_HOST_PASSWORD ='xxxxx'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
