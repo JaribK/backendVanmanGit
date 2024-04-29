@@ -124,7 +124,7 @@ def change_password(request):
                   display: inline-block;
                   padding: 10px 20px;
                   background-color: #007bff;
-                  color: #fff;
+                  color: #000;
                   text-decoration: none;
                   border-radius: 5px;
                 }}
@@ -136,7 +136,7 @@ def change_password(request):
                 <p>Please click the following link to reset your password:</p>
                 <p><a class="button" href="{reset_password_url}">Reset Password</a></p>
                 <p>If you did not request a password reset, please ignore this email.</p>
-                <p>Regards,<br>VANMAN</p>
+                <p>Regards,<br>COMPANY NAME</p>
               </div>
             </body>
             </html>
@@ -145,14 +145,19 @@ def change_password(request):
             send_mail(
                 'Reset Your Password',  # Subject
                 '',  # Empty body (since we're using HTML content)
-                'VANMAN',  # Sender
+                'COMPANY NAME',  # Sender
                 [email],  # Recipient(s)
                 html_message=email_content,  # HTML content
                 fail_silently=False
             )
-            return Response({'message': 'Reset password email sent'}, status=status.HTTP_200_OK)
+            
+            # Get the token
+            token = Token.objects.get(user=user)
+            
+            return Response({'message': 'Reset password email sent', 'token': token.key}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == "GET":
         return Response({'message': 'GET request is not supported'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 
