@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from .serializers import UserSerializer, ResetPasswordEmail
 from django.contrib.auth.models import User
-from users.models import CustomUser
+from users.models import CustomUser, ResetPassword
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 
@@ -18,6 +18,7 @@ import requests
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
+import uuid
 
 # @api_view(['POST'])
 # def login(req):
