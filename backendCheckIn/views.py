@@ -15,6 +15,9 @@ from rest_framework.authentication import TokenAuthentication, SessionAuthentica
 from rest_framework.decorators import authentication_classes
 from django.utils import timezone
 import requests
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
 
 # @api_view(['POST'])
 # def login(req):
@@ -83,3 +86,33 @@ def logout(req):
     
     req.user.auth_token.delete()
     return Response({'message': 'Logged out successfully'})
+
+@api_view(['POST'])
+def change_password(request):
+    if request.method == "POST":
+        serializer = ResetPasswordEmail(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data['email']
+            try:
+                user = CustomUser.objects.get(email=email)
+            except CustomUser.DoesNotExist:
+                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            
+            # Generate a unique token
+            token, _ = Token.objects.get_or_create(user=user)
+
+            # Here you pass the context of things above to send them in an email
+            reset_password_url = settings.FRONTEND_URL + '/reset-password/' + token.key
+
+            send_mail(
+                'SUBJECT',
+                f'Please click the following link to reset your password: {reset_password_url}',
+                'COMPANY NAME and No Reply',
+                [email],
+                fail_silently=False
+            )
+            return Response({'message': 'Reset password email sent'}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == "GET":
+        return Response({'message': 'GET request is not supported'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
