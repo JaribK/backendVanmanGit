@@ -95,6 +95,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backendCheckIn.wsgi.application'
+FRONTEND_URL = 'https://vanman.vercel.app'
 
 
 # Database
