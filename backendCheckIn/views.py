@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ResetPasswordEmail
 from django.contrib.auth.models import User
 from users.models import CustomUser
 from rest_framework.authtoken.models import Token
