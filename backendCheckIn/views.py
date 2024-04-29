@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from .serializers import UserSerializer
 from django.contrib.auth.models import User
-from users.models import CustomUser, ResetPassword
+from users.models import CustomUser
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 
