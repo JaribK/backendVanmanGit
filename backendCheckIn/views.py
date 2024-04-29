@@ -136,7 +136,7 @@ def change_password(request):
                 <p>Please click the following link to reset your password:</p>
                 <p><a class="button" href="{reset_password_url}">Reset Password</a></p>
                 <p>If you did not request a password reset, please ignore this email.</p>
-                <p>Regards,<br>COMPANY NAME</p>
+                <p>Regards,<br>VANMAN</p>
               </div>
             </body>
             </html>
