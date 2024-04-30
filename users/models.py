@@ -58,7 +58,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
                     color: #555;
                 }}
                 .button {{
-                    display: inline-block;
+                    display: none;
                     padding: 10px 20px;
                     background-color: #007bff;
                     color: #fff;
