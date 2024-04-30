@@ -61,7 +61,6 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
                     display: inline-block;
                     padding: 10px 20px;
                     background-color: #007bff;
-                    color: #fff;
                     text-decoration: none;
                     border-radius: 5px;
                     border: none;
@@ -78,7 +77,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
                 <p>Dear user,</p>
                 <p>We received a request to reset your password for the Crediation portal account. If you did not make this request, please ignore this email.</p>
                 <p>To reset your password, please click the button below:</p>
-                <a href="{instance.request.build_absolute_uri('https://vanman.vercel.app/reset-password/')}{reset_password_token.key}" class="button" style=”visibility: hidden;”>Reset Password</a>
+                <a href="{instance.request.build_absolute_uri('https://vanman.vercel.app/reset-password/')}{reset_password_token.key}" class="button" style=”color:white;”>Reset Password</a>
                 <p>If the button above doesn't work, you can copy and paste the following URL into your browser's address bar:</p>
                 <p>{instance.request.build_absolute_uri('https://vanman.vercel.app/reset-password/')}{reset_password_token.key}</p>
                 <p>Thank you.</p>
