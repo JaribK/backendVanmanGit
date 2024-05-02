@@ -67,10 +67,10 @@ class LeaveRequestDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = leave_requests.objects.all()
 
 class FeedbackList(generics.ListCreateAPIView):
-    serializer_class = FeedbackSerializer
+    serializer_class = FeedbacksSerializer
 
     def get_queryset(self):
-        queryset = Feedback.objects.all()
+        queryset = Feedbacks.objects.all()
         location = self.request.query_params.get('location')
         if location is not None:
             queryset = queryset.filter(testLocation=location)
@@ -79,11 +79,11 @@ class FeedbackList(generics.ListCreateAPIView):
     def delete(self, request, *args, **kwargs):
         try:
             # Delete all instances of Feedback
-            Feedback.objects.all().delete()
-            return Response({'message': 'All Feedback deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+            Feedbacks.objects.all().delete()
+            return Response({'message': 'All Feedbacks deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class FeedbackDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = FeedbackSerializer
-    queryset = Feedback.objects.all()
+    serializer_class = FeedbacksSerializer
+    queryset = Feedbacks.objects.all()
