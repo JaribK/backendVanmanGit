@@ -8,5 +8,7 @@ urlpatterns = [
     path('config_salary/<int:pk>/', views.ConfigSalaryDetail.as_view()),
     path('leave_requests/', views.LeaveRequestList.as_view()),
     path('leave_requests/<int:pk>/', views.LeaveRequestDetail.as_view()),
+    path('feedback/', views.FeedbackList.as_view()),
+    path('feedback/<int:pk>/', views.FeedbackDetail.as_view()),
 ]
 
