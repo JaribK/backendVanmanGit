@@ -3,8 +3,8 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 # Create your views here.
 from rest_framework.decorators import api_view
-from .models import Timesheets, ConfigSalary, leave_requests
-from .serializers import TimesheetsSerializer, ConfigSalarySerializer, leave_requestsSerializer
+from .models import Timesheets, ConfigSalary, leave_requests, Feedback
+from .serializers import TimesheetsSerializer, ConfigSalarySerializer, leave_requestsSerializer, FeedbackSerializer
 from django.utils import timezone
 
 class TimesheetList(generics.ListCreateAPIView):
@@ -65,3 +65,25 @@ class LeaveRequestList(generics.ListCreateAPIView):
 class LeaveRequestDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = leave_requestsSerializer
     queryset = leave_requests.objects.all()
+
+class FeedbackList(generics.ListCreateAPIView):
+    serializer_class = FeedbackSerializer
+
+    def get_queryset(self):
+        queryset = Feedback.objects.all()
+        location = self.request.query_params.get('location')
+        if location is not None:
+            queryset = queryset.filter(testLocation=location)
+        return queryset
+    
+    def delete(self, request, *args, **kwargs):
+        try:
+            # Delete all instances of Feedback
+            Feedback.objects.all().delete()
+            return Response({'message': 'All Feedback deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class FeedbackDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = FeedbackSerializer
+    queryset = Feedback.objects.all()
