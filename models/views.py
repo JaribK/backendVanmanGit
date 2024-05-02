@@ -3,8 +3,8 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 # Create your views here.
 from rest_framework.decorators import api_view
-from .models import Timesheets, ConfigSalary, leave_requests, Feedback
-from .serializers import TimesheetsSerializer, ConfigSalarySerializer, leave_requestsSerializer, FeedbackSerializer
+from .models import Timesheets, ConfigSalary, leave_requests, Feedbacks
+from .serializers import TimesheetsSerializer, ConfigSalarySerializer, leave_requestsSerializer, FeedbacksSerializer
 from django.utils import timezone
 
 class TimesheetList(generics.ListCreateAPIView):
