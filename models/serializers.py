@@ -16,7 +16,7 @@ class leave_requestsSerializer(serializers.ModelSerializer):
         model = leave_requests
         fields = ['id','datetime_start', 'datetime_end', 'datetime_requested', 'description', 'status', 'who_signed', 'tel', 'user']
 
-class FeedbackSerializer(serializers.ModelSerializer):
+class FeedbacksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedbacks
         fields = ['id','datetime_send', 'title', 'type', 'description', 'user']
