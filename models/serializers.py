@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Timesheets, ConfigSalary, leave_requests, Feedback
+from .models import Timesheets, ConfigSalary, leave_requests, Feedbacks
 
 class TimesheetsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,5 +18,5 @@ class leave_requestsSerializer(serializers.ModelSerializer):
 
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Feedback
+        model = Feedbacks
         fields = ['id','datetime_send', 'title', 'type', 'description', 'user']
