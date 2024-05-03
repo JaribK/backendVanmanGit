@@ -19,4 +19,4 @@ class leave_requestsSerializer(serializers.ModelSerializer):
 class FeedbacksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedbacks
-        fields = ['id','datetime_send', 'title', 'type', 'description', 'user']
+        fields = ['id','datetime_send', 'title', 'type', 'description','status', 'user']
