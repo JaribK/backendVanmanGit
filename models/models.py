@@ -49,8 +49,9 @@ class leave_requests(models.Model):
 
 class Feedbacks(models.Model):
     status = [
-    (0,'wait for response'),
-    (1,'we have received your message')
+    (0,'we have received your message'),
+    (1,'We are proceesing this.'),
+    (2,'we aware of this or completed processing this')
     ]
     datetime_send = models.DateTimeField(max_length=50)
     title = models.CharField(max_length=50,null=False)
