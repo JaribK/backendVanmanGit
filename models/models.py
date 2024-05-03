@@ -50,7 +50,7 @@ class leave_requests(models.Model):
 class Feedbacks(models.Model):
     status = [
     (0,'wait for response'),
-    (1,'accepted')
+    (1,'we have received your message')
     ]
     datetime_send = models.DateTimeField(max_length=50)
     title = models.CharField(max_length=50,null=False)
