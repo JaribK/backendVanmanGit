@@ -48,8 +48,14 @@ class leave_requests(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='leave_requests')
 
 class Feedbacks(models.Model):
+    status = [
+    (0,'wait for response'),
+    (1,'accepted')
+    ]
     datetime_send = models.DateTimeField(max_length=50)
     title = models.CharField(max_length=50,null=False)
     type = models.CharField(max_length=50,null=False)
     description = models.CharField(max_length=256,null=False)
+    status = models.CharField(max_length=50,null=False,choices=status,default=status[0][0])
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='feedbacks')
+
