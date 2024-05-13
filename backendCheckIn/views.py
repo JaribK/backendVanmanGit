@@ -58,7 +58,7 @@ def login(req):
     
     token = Token.objects.get_or_create(user=user)
     serializer = UserSerializer(instance=user)
-    return Response({'token': token[0].key, 'user': serializer.data})
+    return Response({'token': token[0].key, 'user': serializer.data })
 
 @api_view(['POST'])
 def register(req):
@@ -69,7 +69,7 @@ def register(req):
         user.set_password(req.data['password'])
         user.save()
         token = Token.objects.create(user=user)
-        return Response({'token': token.key,"user": serializer.data})
+        return Response({'token': token.key, 'user': serializer.data})
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
