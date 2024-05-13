@@ -58,7 +58,7 @@ def login(req):
     
     token = Token.objects.get_or_create(user=user)
     serializer = UserSerializer(instance=user)
-    return Response({'token': token[0].key})
+    return Response({'token': token[0].key, 'user': serializer.data})
 
 @api_view(['POST'])
 def register(req):
@@ -76,8 +76,7 @@ def register(req):
 @authentication_classes([TokenAuthentication, SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def token(req):
-    serializer = UserSerializer(req.user)
-    return Response({"user": serializer.data })
+    return Response({"user": req.user.email })
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication, SessionAuthentication])
