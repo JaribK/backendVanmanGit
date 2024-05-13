@@ -87,15 +87,9 @@ def logout(req):
     req.user.is_logged_in = False
     req.user.save()
     
-    req.user.auth_token.delete()
+    # Check if the session has expired
+    if req.session.get_expiry_age() <= 0:
+        # Session expired, delete the token
+        req.auth.delete()
+        
     return Response({'message': 'Logged out successfully'})
-
-class LogoutView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request):
-        # Logout logic: Invalidate session or token
-        request.user.auth_token.delete()  # For token-based authentication
-        # Optionally, you can delete the session as well
-        request.session.flush()
-        return Response(status=status.HTTP_200_OK)
