@@ -76,7 +76,8 @@ def register(req):
 @authentication_classes([TokenAuthentication, SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def token(req):
-    return Response(f'{req.user}')
+    serializer = UserSerializer(req.user)
+    return Response({"user": serializer.data })
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication, SessionAuthentication])
