@@ -19,6 +19,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
 import uuid
+from rest_framework.views import APIView
 
 # @api_view(['POST'])
 # def login(req):
@@ -88,3 +89,13 @@ def logout(req):
     
     req.user.auth_token.delete()
     return Response({'message': 'Logged out successfully'})
+
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        # Logout logic: Invalidate session or token
+        request.user.auth_token.delete()  # For token-based authentication
+        # Optionally, you can delete the session as well
+        request.session.flush()
+        return Response(status=status.HTTP_200_OK)
