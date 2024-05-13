@@ -76,12 +76,7 @@ def register(req):
 @authentication_classes([TokenAuthentication, SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def token(req):
-    try:
-        user = CustomUser.objects.get(username=req.data['username'])
-    except ObjectDoesNotExist:
-        return Response({'error': 'Username not found'}, status=status.HTTP_404_NOT_FOUND)
-    serializer = UserSerializer(instance=user)
-    return Response({"user": serializer.data})
+    return Response(f'{req.user}')
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication, SessionAuthentication])
