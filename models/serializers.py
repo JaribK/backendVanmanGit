@@ -14,7 +14,7 @@ class ConfigSalarySerializer(serializers.ModelSerializer):
 class leave_requestsSerializer(serializers.ModelSerializer):
     class Meta:
         model = leave_requests
-        fields = ['id','datetime_start', 'datetime_end', 'datetime_requested', 'description', 'status', 'who_signed', 'tel', 'user']
+        fields = ['id','datetime_start', 'datetime_end', 'datetime_requested', 'description', 'status', 'who_signed', 'tel', 'type_of_leave', 'user']
 
 class FeedbacksSerializer(serializers.ModelSerializer):
     class Meta:
