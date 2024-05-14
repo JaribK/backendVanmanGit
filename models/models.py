@@ -38,6 +38,14 @@ class leave_requests(models.Model):
     (2,'approved')
     ]
 
+    type = [
+    ('none','None'),
+    ('sick leave','Sick Leave'),
+    ('personal leave','Personal Leave'),
+    ('annual leave','Annual Leave'),
+    ('other','Other')
+    ]
+
     datetime_start = models.DateTimeField(max_length=50,null=False)
     datetime_end = models.DateTimeField(max_length=50,null=False)
     datetime_requested = models.DateTimeField(max_length=50,auto_now_add=True)
@@ -45,6 +53,7 @@ class leave_requests(models.Model):
     status = models.CharField(max_length=50,null=False,choices=status,default=status[1][0])
     who_signed = models.CharField(max_length=50,null=True)
     tel = models.CharField(max_length=50,null=False)
+    type_of_leave = models.CharField(max_length=50,choices=type,default=type[0][0])
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='leave_requests')
 
 class Feedbacks(models.Model):
