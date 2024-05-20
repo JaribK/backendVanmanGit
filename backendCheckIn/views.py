@@ -42,7 +42,7 @@ def login(req):
     if not user.check_password(req.data['password']):
         return Response({'error': 'Wrong password'}, status=status.HTTP_400_BAD_REQUEST)
     
-    if not user.is_activate:
+    if not user.is_activated:
         return Response({'error': 'User account is not activate'}, status=status.HTTP_403_FORBIDDEN)
 
     if user.is_logged_in:
