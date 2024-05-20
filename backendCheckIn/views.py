@@ -89,10 +89,6 @@ def token(req):
 def logout(req):
     req.user.is_logged_in = False
     req.user.save()
-    
-    # Check if the session has expired
-    if req.session.get_expiry_age() <= 0:
-        # Session expired, delete the token
-        req.user.auth_token.delete()
+    req.user.auth_token.delete()
         
     return Response({'message': 'Logged out successfully'})
