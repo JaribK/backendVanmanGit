@@ -68,11 +68,11 @@ def login(req):
 def register(req):
      # Check if username already exists
     if CustomUser.objects.filter(username=req.data['username']).exists():
-        return Response({'error': 'Username already exists'}, status=status.HTTP_409_BAD_REQUEST)
+        return Response({'error': 'Username already exists'}, status=status.HTTP_409_CONFLICT)
     
     # Check if email already exists
     if CustomUser.objects.filter(email=req.data['email']).exists():
-        return Response({'error': 'Email already exists'}, status=status.HTTP_409_BAD_REQUEST)
+        return Response({'error': 'Email already exists'}, status=status.HTTP_409_CONFLICT)
     
     serializer = UserSerializer(data=req.data)
     if serializer.is_valid():
